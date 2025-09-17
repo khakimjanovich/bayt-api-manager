@@ -10,6 +10,24 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::create('bayt_api_manager_provinces', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
+            $table->integer('time_difference')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('bayt_api_manager_districts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('province_id')->index();
+            $table->string('name');
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('bayt_api_manager_mosques', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('district_id')->index();
@@ -21,6 +39,7 @@ return new class extends Migration
             $table->string('has_location');
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
+            $table->string('image')->nullable();
             $table->string('altitude')->nullable();
             $table->string('distance')->nullable();
             $table->timestamps();
@@ -30,5 +49,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('bayt_api_manager_mosques');
+        Schema::dropIfExists('bayt_api_manager_districts');
+        Schema::dropIfExists('bayt_api_manager_provinces');
     }
 };

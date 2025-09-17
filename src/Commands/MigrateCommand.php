@@ -35,8 +35,9 @@ final class MigrateCommand extends Command
         $this->info('Deleted migration records from database.');
 
         $tables_to_drop = [
+            'bayt_api_manager_provinces',
+            'bayt_api_manager_districts',
             'bayt_api_manager_mosques',
-            'bayt_api_manager_mosque_images',
         ];
 
         $dropped_tables = '';

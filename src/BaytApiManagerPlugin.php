@@ -24,6 +24,8 @@ final class BaytApiManagerPlugin implements Plugin
     {
         $panel
             ->resources([
+                Filament\Resources\ProvinceResource::class,
+                Filament\Resources\DistrictResource::class,
                 Filament\Resources\MosqueResource::class,
             ])
             ->navigationGroups([

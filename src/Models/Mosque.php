@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Khakimjanovich\BaytApiManager\Data\Mosques\CreateData;
 
 /**
@@ -16,6 +17,7 @@ use Khakimjanovich\BaytApiManager\Data\Mosques\CreateData;
  * @property int $province_id
  * @property string $name
  * @property string|null $url
+ * @property string|null $image
  * @property string|null $bomdod
  * @property string|null $xufton
  * @property bool $has_location
@@ -70,6 +72,16 @@ final class Mosque extends Model
         return $query
             ->nearest($latitude, $longitude)
             ->havingRaw('distance_km <= ?', [$radiusKm]);
+    }
+
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(Province::class);
     }
 
     protected function location(): Attribute
