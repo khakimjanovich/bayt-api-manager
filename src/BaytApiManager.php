@@ -74,7 +74,8 @@ final class BaytApiManager
                 if (! $district_exists) {
                     $newly_created_districts++;
                     District::create(new Data\Districts\CreateData(
-                        $district->id, $province->id, $district->name, $district->latitude, $district->longitude
+                        $district->id, $province->id, $district->name, $district->latitude ?? 0,
+                        $district->longitude ?? 0
                     ));
                 }
             }
