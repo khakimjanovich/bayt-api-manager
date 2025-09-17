@@ -12,7 +12,7 @@ final class CreateData extends Data
         public int $id,
         public int $province_id,
         public string $name,
-        public float $latitude,
-        public float $longitude,
+        public ?float $latitude = null,
+        public ?float $longitude = null,
     ) {}
 }

@@ -11,8 +11,8 @@ final class CreateData extends Data
     public function __construct(
         public int $id,
         public string $name,
-        public string $latitude,
-        public string $longitude,
-        public int $time_difference,
+        public ?float $latitude = null,
+        public ?float $longitude = null,
+        public ?int $time_difference = null,
     ) {}
 }

@@ -38,16 +38,24 @@ final class DistrictsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('latitude')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('longitude')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('mosques_count')
                     ->counts('mosques')
                     ->label('Mosques'),
+                Tables\Columns\TextColumn::make('location')
+                    ->label('Coordinates')
+                    ->formatStateUsing(function ($record) {
+                        if ($record->latitude && $record->longitude) {
+                            return number_format((float) $record->latitude, 4).', '.number_format((float) $record->longitude, 4);
+                        }
+
+                        return 'No location';
+                    })
+                    ->color(fn ($record) => $record->latitude && $record->longitude ? 'success' : 'gray')
+                    ->icon(fn ($record) => $record->latitude && $record->longitude ? 'heroicon-o-map-pin' : 'heroicon-o-exclamation-triangle')
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

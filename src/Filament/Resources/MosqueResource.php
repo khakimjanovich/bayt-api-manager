@@ -37,8 +37,7 @@ final class MosqueResource extends Resource
                     ->afterStateUpdated(fn (callable $set) => $set('district_id', null)),
 
                 Forms\Components\Select::make('district_id')
-                    ->relationship('district', 'name', fn (\Illuminate\Database\Eloquent\Builder $query, callable $get) =>
-                        $query->when($get('province_id'), fn ($q, $provinceId) => $q->where('province_id', $provinceId))
+                    ->relationship('district', 'name', fn (\Illuminate\Database\Eloquent\Builder $query, callable $get) => $query->when($get('province_id'), fn ($q, $provinceId) => $q->where('province_id', $provinceId))
                     )
                     ->required()
                     ->searchable()
@@ -105,14 +104,9 @@ final class MosqueResource extends Resource
                     ->limit(30)
                     ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
                         $state = $column->getState();
+
                         return mb_strlen($state) > 30 ? $state : null;
                     }),
-
-                Tables\Columns\TextColumn::make('bomdod')
-                    ->label('Bomdod'),
-
-                Tables\Columns\TextColumn::make('xufton')
-                    ->label('Xufton'),
 
                 Tables\Columns\IconColumn::make('has_location')
                     ->boolean()
@@ -124,6 +118,7 @@ final class MosqueResource extends Resource
                         if ($record->latitude && $record->longitude) {
                             return number_format((float) $record->latitude, 4).', '.number_format((float) $record->longitude, 4);
                         }
+
                         return 'No location';
                     })
                     ->color(fn ($record) => $record->latitude && $record->longitude ? 'success' : 'gray')

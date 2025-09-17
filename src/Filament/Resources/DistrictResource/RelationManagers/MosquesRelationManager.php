@@ -58,20 +58,29 @@ final class MosquesRelationManager extends RelationManager
                     ->limit(30)
                     ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
                         $state = $column->getState();
+
                         return mb_strlen($state) > 30 ? $state : null;
                     }),
-                Tables\Columns\TextColumn::make('bomdod')
-                    ->label('Bomdod'),
-                Tables\Columns\TextColumn::make('xufton')
-                    ->label('Xufton'),
                 Tables\Columns\IconColumn::make('has_location')
                     ->boolean()
                     ->label('Has Location'),
-                Tables\Columns\TextColumn::make('latitude')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('location')
+                    ->label('Coordinates')
+                    ->formatStateUsing(function ($record) {
+                        if ($record->latitude && $record->longitude) {
+                            return number_format((float) $record->latitude, 4).', '.number_format((float) $record->longitude, 4);
+                        }
+
+                        return 'No location';
+                    })
+                    ->color(fn ($record) => $record->latitude && $record->longitude ? 'success' : 'gray')
+                    ->icon(fn ($record) => $record->latitude && $record->longitude ? 'heroicon-o-map-pin' : 'heroicon-o-exclamation-triangle')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('longitude')
-                    ->numeric()
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created')
+                    ->dateTime()
+                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Khakimjanovich\BaytApiManager\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +12,10 @@ use Khakimjanovich\BaytApiManager\Data\Provinces\CreateData;
 
 /**
  * @property int $id
+ * @property string $name
+ * @property null|float $latitude
+ * @property null|float $longitude
+ * @property null|int $time_difference
  */
 final class Province extends Model
 {
@@ -38,5 +43,19 @@ final class Province extends Model
     public function districts(): HasMany
     {
         return $this->hasMany(District::class);
+    }
+
+    protected function location(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => [
+                'latitude' => $attributes['latitude'],
+                'longitude' => $attributes['longitude'],
+            ],
+            set: fn (array $value) => [
+                'latitude' => $value['latitude'],
+                'longitude' => $value['longitude'],
+            ],
+        );
     }
 }
