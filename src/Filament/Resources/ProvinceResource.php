@@ -69,7 +69,7 @@ final class ProvinceResource extends Resource
                     ->icon('heroicon-s-arrow-path-rounded-square')
                     ->action(function () {
                         try {
-                            $newly_created = BaytApiManager::syncMosques();
+                            $newly_created = BaytApiManager::syncProvinces();
                             Notification::make()
                                 ->title("We have successfully synced Bayt provinces, newly created provinces count: $newly_created")
                                 ->success()
