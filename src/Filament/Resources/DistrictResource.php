@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Khakimjanovich\Bayt\Exceptions\BaytException;
 use Khakimjanovich\BaytApiManager\Facades\BaytApiManager;
+use Khakimjanovich\BaytApiManager\Filament\Resources\DistrictResource\RelationManagers\MosquesRelationManager;
 use Khakimjanovich\BaytApiManager\Models\District;
 
 final class DistrictResource extends Resource
@@ -41,10 +42,15 @@ final class DistrictResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('province.name')
-                    ->numeric()
+                    ->label('Province')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('mosques_count')
+                    ->counts('mosques')
+                    ->label('Mosques'),
                 Tables\Columns\TextColumn::make('latitude')
                     ->numeric()
                     ->sortable(),
@@ -96,7 +102,7 @@ final class DistrictResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MosquesRelationManager::class,
         ];
     }
 

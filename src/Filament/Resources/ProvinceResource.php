@@ -15,6 +15,8 @@ use Khakimjanovich\BaytApiManager\Facades\BaytApiManager;
 use Khakimjanovich\BaytApiManager\Filament\Resources\ProvinceResource\Pages\CreateProvince;
 use Khakimjanovich\BaytApiManager\Filament\Resources\ProvinceResource\Pages\EditProvince;
 use Khakimjanovich\BaytApiManager\Filament\Resources\ProvinceResource\Pages\ListProvinces;
+use Khakimjanovich\BaytApiManager\Filament\Resources\ProvinceResource\RelationManagers\DistrictsRelationManager;
+use Khakimjanovich\BaytApiManager\Filament\Resources\ProvinceResource\RelationManagers\MosquesRelationManager;
 use Khakimjanovich\BaytApiManager\Models\Province;
 
 final class ProvinceResource extends Resource
@@ -41,7 +43,14 @@ final class ProvinceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('districts_count')
+                    ->counts('districts')
+                    ->label('Districts'),
+                Tables\Columns\TextColumn::make('mosques_count')
+                    ->counts('mosques')
+                    ->label('Mosques'),
                 Tables\Columns\TextColumn::make('latitude')
                     ->numeric()
                     ->sortable(),
@@ -93,7 +102,8 @@ final class ProvinceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            DistrictsRelationManager::class,
+            MosquesRelationManager::class,
         ];
     }
 
