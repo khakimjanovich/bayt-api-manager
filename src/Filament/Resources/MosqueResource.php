@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Khakimjanovich\BaytApiManager\Filament\Resources;
 
-use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -38,38 +37,6 @@ final class MosqueResource extends Resource
                     ->label('URL')
                     ->url()
                     ->maxLength(255),
-
-                Map::make('location')
-                    ->label('Location')
-                    ->columnSpanFull()
-                    ->afterStateHydrated(function (Map $component, $state, $record) {
-                        if ($record && $record->latitude && $record->longitude) {
-                            $component->state([
-                                'lat' => (float) $record->latitude,
-                                'lng' => (float) $record->longitude,
-                            ]);
-                        }
-                    })
-                    ->afterStateUpdated(function (Map $component, $state, Forms\Set $set) {
-                        if (is_array($state) && isset($state['lat'], $state['lng'])) {
-                            $set('latitude', (string) $state['lat']);
-                            $set('longitude', (string) $state['lng']);
-                        }
-                    })
-                    ->extraAttributes([
-                        'style' => 'border-radius: 8px',
-                    ])
-                    ->liveLocation()
-                    ->showMarker()
-                    ->markerColor('#3b82f6')
-                    ->showFullscreenControl()
-                    ->showZoomControl()
-                    ->draggable()
-                    ->tilesUrl('https://tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png')
-                    ->zoom(15)
-                    ->detectRetina()
-                    ->showMyLocationButton()
-                    ->clickable(true),
 
                 Forms\Components\Hidden::make('latitude'),
                 Forms\Components\Hidden::make('longitude'),
@@ -136,13 +103,6 @@ final class MosqueResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

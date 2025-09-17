@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Khakimjanovich\BaytApiManager\Data\Mosques\CreateData;
 
 /**
@@ -72,12 +71,6 @@ final class Mosque extends Model
             ->nearest($latitude, $longitude)
             ->havingRaw('distance_km <= ?', [$radiusKm]);
     }
-
-    public function images(): HasMany
-    {
-        return $this->hasMany(MosqueImage::class);
-    }
-
 
     protected function location(): Attribute
     {

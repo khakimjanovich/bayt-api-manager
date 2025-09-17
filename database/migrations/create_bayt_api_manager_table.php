@@ -25,25 +25,10 @@ return new class extends Migration
             $table->string('distance')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('bayt_api_manager_mosque_images', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('mosque_id')->index();
-            $table->string('original_url');
-            $table->string('file_path');
-            $table->string('file_name');
-            $table->unsignedBigInteger('file_size')->nullable();
-            $table->string('mime_type')->nullable();
-            $table->json('metadata')->nullable();
-            $table->timestamps();
-
-            $table->index('original_url');
-        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('bayt_api_manager_mosque_images');
         Schema::dropIfExists('bayt_api_manager_mosques');
     }
 };
