@@ -1,25 +1,35 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "khakimjanovich/bayt-api-manager",
+    "description": "This is my package bayt-api-manager",
     "keywords": [
-        ":vendor_name",
+        "Yunusali Abduraxmanov",
         "laravel",
-        ":package_slug"
+        "bayt-api-manager"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/khakimjanovich/bayt-api-manager",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Yunusali Abduraxmanov",
+            "email": "yunusalikhakimjanovich@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.4",
-        "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^11.0||^12.0"
+        "dotswan/filament-map-picker": "^1.8",
+        "filament/filament": "^v3.3.37",
+        "illuminate/contracts": "^11.0||^12.0",
+        "khakimjanovich/bayt-api": "@dev",
+        "spatie/laravel-data": "^4.17",
+        "spatie/laravel-package-tools": "^1.16"
     },
+    "repositories": [
+        {
+            "url": "https://github.com/khakimjanovich/bayt-api",
+            "type": "vcs"
+        }
+    ],
     "require-dev": {
         "laravel/pint": "^1.14",
         "nunomaduro/collision": "^8.8",
@@ -35,13 +45,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Khakimjanovich\\BaytApiManager\\": "src/",
+            "Khakimjanovich\\BaytApiManager\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Khakimjanovich\\BaytApiManager\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +73,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Khakimjanovich\\BaytApiManager\\BaytApiManagerServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "BaytApiManager": "Khakimjanovich\\BaytApiManager\\Facades\\BaytApiManager"
             }
         }
     },
