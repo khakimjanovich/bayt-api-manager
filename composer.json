@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.4",
-        "filament/filament": "^v3.3.37",
+        "filament/filament": "^v4.4.0",
         "illuminate/contracts": "^11.0||^12.0",
         "khakimjanovich/bayt-api": "@dev",
         "spatie/laravel-data": "^4.17",
